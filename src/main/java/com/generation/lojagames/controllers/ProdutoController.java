@@ -23,11 +23,17 @@ public class ProdutoController {
         return ResponseEntity.ok().body(produtoRepository.findAll());
     }
 
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Produto> findById(@PathVariable Long id){
+        return produtoRepository.findById(id)
+                .map(obj -> ResponseEntity.ok(obj))
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
     @PostMapping
     public ResponseEntity<Produto> insert(@RequestBody Produto produto){
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produto));
     }
-
 
 
 }
