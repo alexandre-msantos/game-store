@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/categorias")
@@ -44,5 +45,16 @@ public class CategoriaController {
         return categoriaRepository.findById(categoria.getId())
                 .map(obj -> ResponseEntity.ok().body(categoriaRepository.save(categoria)))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        Optional<Categoria> obj = categoriaRepository.findById(id);
+
+        if(!obj.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        categoriaRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }
