@@ -30,6 +30,11 @@ public class ProdutoController {
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
+    @GetMapping(value = "/nome/{nome}")
+    public ResponseEntity<List<Produto>> findByName(@PathVariable String nome){
+        return ResponseEntity.ok(produtoRepository.findAllByNomeContainingIgnoreCase(nome));
+    }
+
     @PostMapping
     public ResponseEntity<Produto> insert(@RequestBody Produto produto){
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produto));
