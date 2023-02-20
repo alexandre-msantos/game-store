@@ -16,7 +16,7 @@ public class Produto {
     private String nome;
     private String marca;
     private String descricao;
-    private Double qntd;
+    private Integer qntd;
     private BigDecimal preco;
 
     @ManyToOne
@@ -26,7 +26,7 @@ public class Produto {
     public Produto() {
     }
 
-    public Produto(Long id, String nome, String marca, String descricao, Double qntd, BigDecimal preco) {
+    public Produto(Long id, String nome, String marca, String descricao, Integer qntd, BigDecimal preco) {
         this.id = id;
         this.nome = nome;
         this.marca = marca;
@@ -67,11 +67,7 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public Double getQntd() {
-        return qntd;
-    }
-
-    public void setQntd(Double qntd) {
+    public void setQntd(Integer qntd) {
         this.qntd = qntd;
     }
 
