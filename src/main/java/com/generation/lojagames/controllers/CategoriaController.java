@@ -20,5 +20,10 @@ public class CategoriaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(categoriaRepository.save(categoria));
     }
 
-
+    @PutMapping
+    public ResponseEntity<Categoria> update(@RequestBody Categoria categoria){
+        return categoriaRepository.findById(categoria.getId())
+                .map(obj -> ResponseEntity.ok().body(categoriaRepository.save(categoria)))
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
 }
