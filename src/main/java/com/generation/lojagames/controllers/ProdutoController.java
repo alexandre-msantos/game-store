@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/produtos")
@@ -48,5 +49,14 @@ public class ProdutoController {
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        Optional<Produto> obj = produtoRepository.findById(id);
 
+        if(!obj.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        produtoRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
