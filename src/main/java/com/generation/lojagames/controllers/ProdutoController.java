@@ -40,5 +40,13 @@ public class ProdutoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produto));
     }
 
+    @PutMapping
+    public ResponseEntity<Produto> update(@RequestBody Produto produto){
+        return produtoRepository.findById(produto.getId())
+                .map(obj -> ResponseEntity.ok()
+                    .body(produtoRepository.save(produto)))
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
 
 }
